@@ -7,6 +7,8 @@ class Wizard extends Component {
         super()
         this.state = {
             state: reduxState.state,
+            monthlyMortgageAmount: "",
+            desiredRent: "",
             input: ''
 
         }
