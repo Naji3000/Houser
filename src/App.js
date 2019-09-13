@@ -1,26 +1,67 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import Dashboard from './components/Dashboard';
+import Wizard from './components/Wizard';
+import Header from './components/Header'
+import {HashRouter} from 'react-router-dom'
+import axios from 'axios'
 
-function App() {
+
+class App extends Component {
+  constructor(){
+    super()
+    this.state = {
+      houses: [
+        {
+          property_name: "",
+          address: "",
+          city: "",
+          state: "",
+          zip_code: 0
+
+        }
+      ]
+    };
+
+  }
+
+  componentDidMount = () => {
+    axios.get('/api/houses')
+    .then(res => {
+      this.updateProperty(res.data)
+    })
+  }
+  
+
+
+  updateProperty(value){
+    this.setState({
+      property_name: value,
+      address: value,
+      city: value,
+      state: value,
+      zip_code: value
+    })
+  }
+
+
+
+  render(){
+    const {houses} = this.state
   return (
+    
+    <HashRouter>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <Dashboard houses = {houses}
+      updateProperty = {this.updateProperty}/>
+      <Wizard />
+      
     </div>
-  );
+    </HashRouter>
+  
+  )
+  }
 }
 
 export default App;
