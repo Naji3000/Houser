@@ -41,6 +41,13 @@ class Wizard extends Component {
                 <input />
                 Address: 
                 <input />
+                City:
+                <input />
+                State:
+                <input />
+                Zip-code:
+                <input />
+                
             </div>
         )
     }
